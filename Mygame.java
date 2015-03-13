@@ -28,11 +28,11 @@ public class Mygame{
 				System.out.println("You miss !!!");
 				enemy_board_ships.Tablero[row][column] = "!";
 				board_missiles.Tablero[row][column] = "*";
-				return 1;			
+				return 1;	
 			}
-		}
+    }
 
-	public static void play_cpu(Myboard enemy_board_ships, Myboard board_missiles){
+	public static void play_cpu(Myboard board_missiles,Myboard enemy_board_ships){
 		Random Random=new Random();
 		int row = Random.nextInt(9)+0;
 		int column = Random.nextInt(9)+0;
@@ -40,7 +40,7 @@ public class Mygame{
 		play(enemy_board_ships,board_missiles, row, column);
 	}
 
-	public static void play_player(Myboard enemy_board_ships, Myboard board_missiles, int row, int column){
+	public static void play_player(Myboard board_missiles,Myboard enemy_board_ships, int row, int column){
 	
 		play(enemy_board_ships, board_missiles, row, column);
 
@@ -114,7 +114,7 @@ public class Mygame{
 	public static boolean is_winner(String ship_symbol,String[][]Tablero){
 		for(int i = 0; i<10; i++){
 			for(int j = 0; j<10; j++){
-				if(Tablero[i][j].equals("S")){
+				if(Tablero[i][j].equals(ship_symbol)){
 					return false;
 				}
 			} 
@@ -155,7 +155,7 @@ public class Mygame{
     
     		Myboard mb=new Myboard();
 		String ship_symbol="S";
-		while(menu_option.equals("c") == false && (is_winner(ship_symbol,mb.Tablero)==true)){
+		while(menu_option.equals("c") == false || (is_winner(ship_symbol,mb.Tablero)==false)){
 
   	     		if(menu_option.equals("a")){
 				
