@@ -71,7 +71,7 @@ public class Mygame{
 		int type_player;
 		int counter=0;
 
-			while(counter<5){
+			while(counter<1){
 				row_player=rand.nextInt(9) + 0;
 				column_player=rand.nextInt(9) + 0;
 				type_player=rand.nextInt(3) + 1;
@@ -137,12 +137,13 @@ public class Mygame{
     public static String column_conversion(String column){
 			String[] letras_arreglo={"A","B","C","D","E","F","G","H","I","J"};
     			    for(int x = 0; x < letras_arreglo.length; x++){
-				if (letras_arreglo[x] == column){
+				if (letras_arreglo[x].equals( column)){
 					return String.valueOf(x);
 				}
 			    }
 		return String.valueOf(0);
     }
+
     public static void main(String[] args) throws Exception{
 
     // variables
