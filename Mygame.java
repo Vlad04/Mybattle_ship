@@ -118,9 +118,9 @@ public class Mygame{
 		for(int i = 0; i<10; i++){
 			for(int j = 0; j<10; j++){
 				if(Tablero[i][j].equals(ship_symbol)){
-                    System.out.println("I still found a ship");
-                    System.out.println("row = " + i );
-                    System.out.println("column = " + j);
+                    //System.out.println("I still found a ship");
+                    //System.out.println("row = " + i );
+                    //System.out.println("column = " + j);
 			        ret = false;
                     return ret;
 				}
