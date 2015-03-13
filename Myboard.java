@@ -34,11 +34,15 @@ public class Myboard{
 
 	public String toString(){
 
-		String str_tablero="";
-			
+		String str_tablero="   A B C D E F G H I J \n";
+		
 			for(int fila=0;fila<Tablero.length;fila++){
+				str_tablero+= fila+1 + " " ;
+				if(fila!=9){
+					str_tablero+=" ";
+				}
 				for(int columna=0;columna<Tablero.length;columna++){
-						str_tablero+=Tablero[fila][columna]+" ";
+						str_tablero+= Tablero[fila][columna]+" ";
 				}
 			str_tablero+="\n";
 			}
@@ -47,12 +51,12 @@ public class Myboard{
 
 	public static void main(String[]args){
 
-		Myboard b=new Myboard();
-		System.out.println(b.mark(5,5,"X"));
+		Myboard mb=new Myboard();
+		System.out.println(mb.mark(5,5,"X"));
 		System.out.println();
-		System.out.println(b.mark(2,2,"V"));
+		System.out.println(mb.mark(2,2,"V"));
 		System.out.println();
-		System.out.println(b.toString());
+		System.out.println(mb.toString());
 	}
 
 

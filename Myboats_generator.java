@@ -46,7 +46,7 @@ public class Myboats_generator{
 	
 			ret1=board.mark(row,column,ship_symbol);
 			ret2=board.mark(row,column+1,ship_symbol);
-			System.out.println(board.toString());
+			//System.out.println(board.toString());
 		
 			return(ret1 && ret2);		
 	
@@ -57,7 +57,7 @@ public class Myboats_generator{
 			ret1=board.mark(row,column,ship_symbol);
 			ret2=board.mark(row,column+1,ship_symbol);
 			ret3=board.mark(row,column+2,ship_symbol);
-			System.out.println(board.toString());
+			//System.out.println(board.toString());
 			
 			return(ret1 && ret2 && ret3);				
 	
@@ -68,7 +68,7 @@ public class Myboats_generator{
 			ret2=board.mark(row,column+1,ship_symbol);
 			ret3=board.mark(row,column+2,ship_symbol);
 			ret4=board.mark(row,column+3,ship_symbol);
-			System.out.println(board.toString());
+			//System.out.println(board.toString());
 		
 			return(ret1 && ret2 && ret3 && ret4);
 		}
@@ -96,15 +96,15 @@ public class Myboats_generator{
 			column=r.nextInt(8) + 2;
 			type=r.nextInt(9) + 0;
 	
-			System.out.println("");
-			System.out.println(row);
-			System.out.println(column);
-			System.out.println(type);
+			//System.out.println("");
+			//System.out.println(row);
+			//System.out.println(column);
+			//System.out.println(type);
 	
 			if(mbg.generate_ship(row,column,type)){
 				counter=counter+1;
 			}
-			counter++;
+			
 		}
 	
 		mb=mbg.get_board();
