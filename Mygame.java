@@ -71,7 +71,7 @@ public class Mygame{
 		int type_player;
 		int counter=0;
 
-			while(counter<5){
+			while(counter<1){
 				row_player=rand.nextInt(9) + 0;
 				column_player=rand.nextInt(9) + 0;
 				type_player=rand.nextInt(3) + 1;
@@ -111,100 +111,119 @@ public class Mygame{
 	}
 	
 
-	public static boolean is_winner(String ship_symbol,String[][]Tablero){
+	public static boolean no_ships_on_board(String ship_symbol,String[][]Tablero){
+
+        boolean ret = true;
+
 		for(int i = 0; i<10; i++){
 			for(int j = 0; j<10; j++){
 				if(Tablero[i][j].equals(ship_symbol)){
-					return false;
+                    System.out.println("I still found a ship");
+                    System.out.println("row = " + i );
+                    System.out.println("column = " + j);
+			        ret = false;
+                    return ret;
 				}
 			} 
 		}
-		
-		return true;
+	    return ret;
 	}
 	
-	public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception{
 
+    // variables
+    boolean first_player_asigned = false;
+	String[] Players = {"Player","CPU"};
+	String row,column = "0";
+	String ship_symbol="S";
     
-    		boolean first_player_asigned = false;
-    		String[] Players = {"Player","CPU"};
-    		String row,column = "0";
-    
-    
-    		InputStreamReader isr = new  InputStreamReader (System.in);
-    		BufferedReader br = new BufferedReader(isr);
+    // Buffer Reader
+    InputStreamReader isr = new  InputStreamReader (System.in);
+    BufferedReader br = new BufferedReader(isr);
    
-   
-    		System.out.println("Welcome, please write your name" );
-    		String name_player = br.readLine();
-   	 	String menu_option = Menu(br);
+    // Welcome message & get user name
+    System.out.println("Welcome, please write your name" );
+    String name_player = br.readLine();
+   	String menu_option;
+    Myplayer p1 = new Myplayer(name_player);
+  
+    // Create boats && ships boards
+    Myboard player_board_ships = new Myboard();
+    Myboard cpu_board_ships = new Myboard();
+    Myboard player_board_missiles = new Myboard();
+    Myboard cpu_board_missiles = new Myboard();
     
-
+    // Generate the ships random inside the board
+    player_board_ships = Generate_boats_random(player_board_ships);
+    cpu_board_ships = Generate_boats_random(cpu_board_ships);
+    
+	while(true){
        
-    		Myplayer p1 = new Myplayer(name_player);
-    
-   
-    		Myboard player_board_ships = new Myboard();
-    		Myboard cpu_board_ships = new Myboard();
-    		Myboard player_board_missiles = new Myboard();
-    		Myboard cpu_board_missiles = new Myboard();
-    
-    
-    		player_board_ships = Generate_boats_random(player_board_ships);
-    		cpu_board_ships = Generate_boats_random(cpu_board_ships);
-    
-    		Myboard mb=new Myboard();
-		String ship_symbol="S";
-		while(menu_option.equals("c") == false || (is_winner(ship_symbol,mb.Tablero)==false)){
+            // ask the user for a valid option
+			menu_option = Menu(br);
+            if (menu_option.equals("a")){
+                while(true){
 
-  	     		if(menu_option.equals("a")){
-				
-        	   		System.out.println(name_player+" Vs CPU: Let's play.");
-        	   			if (!first_player_asigned){
-        	        			if (Random(1000,1)%2 == 0 ){
-                    
-        	            				System.out.println( name_player + " starts first ");
-        	            				print_boards(name_player,player_board_ships,player_board_missiles);
-        	   				}
-                   	else{
-                    
-                   		 System.out.println("CPU starts first");
-                   		 play_cpu(cpu_board_missiles,player_board_ships);
-                   		 print_boards("CPU",cpu_board_ships,cpu_board_missiles);
-                   	}
-                		 first_player_asigned = true;
-                   			}
-           
+                    //check that player win
+                    if (no_ships_on_board(ship_symbol,player_board_ships.Tablero)) {
+                        System.out.println(name_player + " you loose");
+                        break;
+                    }
 
-           		
-          	  	System.out.println(name_player + " choose Row ");
-          	  	row = br.readLine();
+                    //check that cpu win
+                    if (no_ships_on_board(ship_symbol,cpu_board_ships.Tablero)){
+                        System.out.println(name_player + " you win");
+	                    p1.declare_winner();
+                        break;
+                    }
                 
-          	 	System.out.println(name_player + " choose Column");
-          	  	column = br.readLine();
 
+                    // Start to play
+                    System.out.println(name_player+" Vs CPU: Let's play.");
+
+                    // Asign the first player
+                    if (!first_player_asigned){
+        	            if (Random(1000,1)%2 == 0 ){
+                            System.out.println( name_player + " starts first ");
+                            print_boards(name_player,player_board_ships,player_board_missiles);
+        	   			    }
+                   	    else{
+                   		    System.out.println("CPU starts first");
+                   		    play_cpu(cpu_board_missiles,player_board_ships);
+                   		    print_boards("CPU",cpu_board_ships,cpu_board_missiles);
+                   	    }
+                	    first_player_asigned = true;
+                    }
            
-          	  	play_player(player_board_missiles,cpu_board_ships,Integer.parseInt(row),Integer.parseInt(column));
-          	  	print_boards(name_player,player_board_ships,player_board_missiles);
+
+           		    // Ask row and column pos of player
+          	  	    System.out.println(name_player + " choose Row ");
+          	  	    row = br.readLine();
+                
+          	 	    System.out.println(name_player + " choose Column");
+          	  	    column = br.readLine();
+
+                    // Play with player cordinates
+          	  	    play_player(player_board_missiles,cpu_board_ships,Integer.parseInt(row),Integer.parseInt(column));
+          	  	    print_boards(name_player,player_board_ships,player_board_missiles);
             
-           
-          	  	play_cpu(cpu_board_missiles,player_board_ships);
-          	  	print_boards("CPU",cpu_board_ships,cpu_board_missiles);
-                    
-				   menu_option = Menu(br);
-	          	}
-				
+                    // Play as CPU in random
+          	  	    play_cpu(cpu_board_missiles,player_board_ships);
+          	  	    print_boards("CPU",cpu_board_ships,cpu_board_missiles);
+
+                }
+            }
 		  	else if(menu_option.equals("b")){
 				System.out.println(p1.get_name()+" your score is: "+p1.get_record());
-				menu_option = Menu(br);				
 		 	}
-		   	else{
-				menu_option = Menu(br);
-			}
-		
-		}
+
+            else if (menu_option.equals("c") == true ){
+                System.out.println("Good Bye");
+                break;
+            }
+        }
 	
-    	}
+    }
 
 
 }
