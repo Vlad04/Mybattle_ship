@@ -128,7 +128,21 @@ public class Mygame{
 		}
 	    return ret;
 	}
-	
+    public static String row_conversion(String row){
+		int new_row = 0;
+		new_row = Integer.parseInt(row)-1;
+		return String.valueOf(new_row);
+    }
+
+    public static String column_conversion(String column){
+			String[] letras_arreglo={"A","B","C","D","E","F","G","H","I","J"};
+    			    for(int x = 0; x < letras_arreglo.length; x++){
+				if (letras_arreglo[x] == column){
+					return String.valueOf(x);
+				}
+			    }
+		return String.valueOf(0);
+    }
     public static void main(String[] args) throws Exception{
 
     // variables
@@ -197,11 +211,14 @@ public class Mygame{
            
 
            		    // Ask row and column pos of player
+	
           	  	    System.out.println(name_player + " choose Row ");
           	  	    row = br.readLine();
+			    row = row_conversion(row);
                 
           	 	    System.out.println(name_player + " choose Column");
           	  	    column = br.readLine();
+			    column = column_conversion(column);
 
                     // Play with player cordinates
           	  	    play_player(player_board_missiles,cpu_board_ships,Integer.parseInt(row),Integer.parseInt(column));
