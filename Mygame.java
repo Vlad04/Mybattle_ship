@@ -71,7 +71,7 @@ public class Mygame{
 		int type_player;
 		int counter=0;
 
-			while(counter<1){
+			while(counter<5){
 				row_player=rand.nextInt(9) + 0;
 				column_player=rand.nextInt(9) + 0;
 				type_player=rand.nextInt(3) + 1;
